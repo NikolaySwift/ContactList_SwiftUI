@@ -8,14 +8,24 @@
 import SwiftUI
 
 struct ContentView: View {
+    private let contacts = DataStore.shared.getContacts()
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        NavigationStack {
+            TabView {
+                ContactListView(contacts: contacts)
+                    .tabItem {
+                        Image(systemName: "person.2.fill")
+                        Text("Contacts")
+                    }
+                ContactListInSectionView(contacts: contacts)
+                    .tabItem {
+                        Image(systemName: "phone.fill")
+                        Text("Numbers")
+                    }
+            }
+            .navigationTitle("Contact List")
         }
-        .padding()
     }
 }
 
